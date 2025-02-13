@@ -1,0 +1,44 @@
+<div class="page-container new-event">
+  <h1>创建节点</h1>
+  <form [formGroup]="form" (ngSubmit)="submitForm()">
+    <div class="mb-10">
+      <p-floatlabel variant="on" >
+        <p-datepicker formControlName="date"
+                      inputId="on_label"
+                      showIcon
+                      [maxDate]="maxDate"
+                      iconDisplay="input"
+                      class="w-full"/>
+        <label for="on_label">日期</label>
+      </p-floatlabel>
+      <div *ngIf="fc['date'].errors && isSubmitted" style="color: #f86161" class="mt-2">请选择日期</div>
+    </div>
+    <div class="mb-10">
+      <p-floatlabel variant="on">
+        <input pInputText id="on_label" formControlName="title"   autocomplete="off" class="w-full" />
+        <label for="on_label">标题</label>
+      </p-floatlabel>
+      <div *ngIf="fc['title'].errors && isSubmitted" style="color: #f86161" class="mt-2">请输入标题</div>
+    </div>
+    <div class="mb-10">
+      <p-floatlabel variant="on">
+        <textarea pTextarea id="over_label" formControlName="description" rows="5" cols="30" style="resize: none" class="h-full w-full"></textarea>
+        <label for="on_label">描述</label>
+      </p-floatlabel>
+      <div *ngIf="fc['description'].errors && isSubmitted" style="color: #f86161" class="mt-2">请输入描述</div>
+    </div>
+
+
+
+
+
+    <div class="file-area" (click)="fileInput1.click()">
+      <div style="color: #9a9a9a">点击上传一张图片(可不选)</div>
+      <img *ngIf="avatarUrl" [src]="avatarUrl" alt="Avatar Preview" style="width: 200px; height: 200px; object-fit: contain" />
+
+    </div>
+    <input #fileInput1 type="file" (change)="onFileSelected($event)" accept="image/*" class="file-input">
+    <p-button type="submit" label="{{isSubmitting ? '创建中...' : '创建'}}" icon="pi pi-send" iconPos="right" [raised]="true" [disabled]="isSubmitting"/>
+
+  </form>
+</div>

@@ -1,0 +1,87 @@
+.timeline-page {
+  max-width: 1000px;
+  margin: 90px auto;
+  @media (max-width: 800px) {
+    padding-right: 0;
+  }
+  .new-event-button-wrapper {
+    margin-bottom: 20px;
+  }
+
+  .p-timeline-event-separator {
+  }
+
+  //::ng-deep .p-timeline-event-marker {
+  //  margin-top: 26px;
+  //}
+
+  ::ng-deep .p-timeline-event-content {
+    margin-top: 4px;
+    margin-bottom: 20px;
+    @media (max-width: 800px) {
+      padding-right: 0;
+      .p-card {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+
+      }
+      .p-card-body {
+        padding: 16px;
+      }
+
+    }
+  }
+
+  ::ng-deep .p-timeline-event-opposite {
+    @media (max-width: 800px) {
+      flex: 0 !important;
+      padding-left: 0;
+      padding-right: 4px;
+
+    }
+  }
+
+  .title {
+    color: #3d3d3d;
+    font-size: 20px;
+    margin-bottom: 10px;
+    @media (max-width: 800px) {
+      font-size: 16px;
+    }
+  }
+  .date {
+    color: #3d3d3d;
+    font-size: 20px;
+    @media (max-width: 800px) {
+      font-size: 14px;
+    }
+  }
+}
+
+:host {
+  @keyframes slidedown-icon {
+    0% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(20px);
+    }
+
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  .slidedown-icon {
+    animation: slidedown-icon;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+  }
+
+  .box {
+    background-image: radial-gradient(var(--primary-300), var(--primary-600));
+    border-radius: 50% !important;
+    color: var(--primary-color-text);
+  }
+}

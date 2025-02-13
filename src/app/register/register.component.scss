@@ -1,0 +1,101 @@
+.register-container {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  //height: 100vh;
+  padding: 60px;
+  @media (max-width: 600px) {
+    padding: 40px 0 80px;
+  }
+  h1 {
+    color: #333;
+    font-size: 36px;
+    margin-bottom: 24px;
+    //font-family: 'Oleo Script';
+    @media (max-width: 600px) {
+      font-size: 24px;
+      margin-bottom: 0px;
+    }
+  }
+
+  .register-card {
+    padding: 36px;
+    border-radius: 20px;
+    margin-top: 16px;
+    width: 700px;
+    background: white;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    @media (max-width: 600px) {
+      padding: 20px;
+      width: 95%;
+    }
+    .zmkdpw-input-group {
+      margin-bottom: 20px;
+      label {
+        color: #333333;
+        font-size: 16px;
+        margin-bottom: 6px;
+        display: block;
+      }
+      input {
+        border: 1px solid #ddd;
+        outline: none;
+        background: none;
+        border-radius: 8px;
+        display: block;
+        padding: 12px 16px;
+        width: 100%;
+        font-size: 18px;
+        transition: .2s all ease-in-out;
+        color: #1e1e1e;
+        &:hover {
+          border-color: #ccc;
+        }
+        &:focus {
+          box-shadow: 0 0 0 3px rgba(120, 200, 255, 0.81);
+          border-color: #0f9afa;
+        }
+      }
+      @media (max-width: 600px) {
+        input {
+          padding: 12px 16px;
+        }
+      }
+      .error-list {
+        margin-top: 10px;
+        color: #fc4a4a;
+        font-size: 16px;
+      }
+    }
+
+    button {
+      border-radius: 12px;
+      background: #000;
+      color: #fff;
+      padding: 20px;
+      width: 100%;
+      outline: none;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+      //font-family: 'Oleo Script';
+      &:hover {
+        background: #1e1e1e;
+      }
+
+    }
+  }
+  .hint {
+    margin-top: 40px;
+    a {
+      text-decoration: underline;
+    }
+  }
+}
+

@@ -1,0 +1,69 @@
+canvas {
+  display: block;
+
+}
+
+.home-wrapper {
+  background-image: url("https://user-images.githubusercontent.com/26748614/96337246-f14d4580-1085-11eb-8793-a86d929e034d.jpg");
+  background-size: cover;
+  backdrop-filter:  brightness(50%);
+  height: 100vh;
+}
+
+#canvas_container {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 9;
+}
+
+.home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+
+
+  h1 {
+    color: #fff;
+    font-size: 80px;
+    font-family: 'Oleo Script';
+    display: block;
+    margin-bottom: 100px;
+    @media (max-width: 600px) {
+      font-size: 60px;
+    }
+  }
+  .enter {
+    color: #fff;
+    background: transparent;
+    border: 2px solid #fff;
+    border-radius: 16px;
+    outline: none;
+    -webkit-appearance: none;
+    padding: 8px 32px;
+    font-size: 36px;
+    margin-top: 24px;
+    width: 300px;
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+    font-family: 'Oleo Script';
+    &:hover {
+      color: rgba(255, 255, 255, 1);
+      box-shadow: 0 3px 20px rgb(255, 255, 255);
+    }
+
+    @media (max-width: 600px) {
+      font-size: 24px;
+      padding: 16px 20px;
+    }
+  }
+}

@@ -1,0 +1,33 @@
+<div class="page-container" style="max-width: 1000px; margin: 90px auto">
+  <h1>修改资料</h1>
+
+  <div class="flex flex-col items-center">
+    <img  *ngIf="user?.avatarUrl" [src]="user.avatarUrl" alt="Avatar Preview" style="border-radius: 50%; border: 1px solid #eae9e9; width: 100px; height: 100px; object-fit: contain"/>
+    <img  *ngIf="!user?.avatarUrl" src="https://zmk-dpw-s3-bucket.s3.ap-southeast-1.amazonaws.com/static/default-user-image.png" alt="Avatar Preview" style="border-radius: 50%; width: 100px; height: 100px; object-fit: contain"/>
+
+    <p-button (click)="showDialog()" label="点我更换头像" styleClass="mt-4"/>
+  </div>
+<div style="padding-top: 60px; border-top: 1px solid #ececec; margin-top: 60px">
+
+</div>
+
+  <p-dialog header="修改头像" (onHide)="closeDialog()" [modal]="true" position="top" [(visible)]="visible" [style]="{ width: '600px' }">
+    <input #fileInput type="file" (change)="onFileSelected($event)" accept="image/*" style="display: none"/>
+    <div class="file-area mb-4" (click)="fileInput.click(); fileInput.value=''">
+      <i class="pi pi-image" style="font-size: 2rem; color: #c5c5c5"></i>
+      <p class="mt-4">点击选择一张图片</p>
+    </div>
+    <div class="avatar-preview flex flex-col items-center mb-4">
+      <img *ngIf="avatarUrl" [src]="avatarUrl" alt="Avatar Preview" style="width: 200px; height: 200px; object-fit: contain" />
+      <!--    <p *ngIf="!avatarUrl">No Avatar Selected</p>-->
+    </div>
+    <!-- Error Message -->
+    <p class="error" *ngIf="errorMessage">{{ errorMessage }}</p>
+    <div>
+      <p-button label="{{isUploading ? '保存中...' : '保存'}}"  [disabled]="isUploading" (click)="uploadAvatar()" styleClass="w-full mb-4"/>
+      <p-button label="取消" severity="secondary" (click)="closeDialog()" styleClass="w-full"/>
+    </div>
+  </p-dialog>
+
+
+</div>

@@ -1,0 +1,31 @@
+<div class="page-container timeline-page">
+  <div class="new-event-button-wrapper">
+    <p-button routerLink="/timeline/new" label="创建节点" icon="pi pi-plus" iconPos="left" [raised]="true"/>
+  </div>
+  <ng-container *ngIf="isLoading">
+    <i class="pi pi-spin pi-spinner" style="font-size: 2rem; color: #3d3d3d; margin-top: 20px"></i>
+  </ng-container>
+  <div class="card" *ngIf="!isLoading">
+    <p-timeline [value]="events" [align]="mode" styleClass="customized-timeline">
+      <ng-template #opposite let-event>
+        <div>
+              <div class="date">{{event.date| date:'yyyy.MM.dd'}}</div>
+        </div>
+
+      </ng-template>
+      <ng-template #content let-event>
+        <p-card  pAnimateOnScroll
+                 animate-duration-1000 animate-ease-in-out
+                 enterClass="animate-fadeinright"
+                 leaveClass="animate-fadeoutright">
+          <div class="title">{{event.title}}</div>
+          <p>
+            {{event.description}}
+          </p>
+          <img *ngIf="event.imageUrl" src="{{event.imageUrl}}" alt="image" class="w-full mt-4" />
+
+        </p-card>
+      </ng-template>
+    </p-timeline>
+  </div>
+</div>

@@ -1,1 +1,60 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "primeicons/primeicons.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1 {
+    @apply text-2xl lg:text-3xl;
+    margin-bottom: 40px;
+  }
+}
+body {
+  margin: 0;
+  overflow: scroll;
+  width: 100vw;
+  height: 100vh;
+  //background-image: url("https://user-images.githubusercontent.com/26748614/96337246-f14d4580-1085-11eb-8793-a86d929e034d.jpg");
+  //background-size: cover;
+  //backdrop-filter:  brightness(50%);
+  font-family: Tahoma, Verdana, Segoe, sans-serif;
+  background: #fff;
+}
+
+
+.p-button-text {
+  color: #334155 !important;
+}
+
+.p-toast-summary {
+  font-size: 20px !important;
+
+}
+
+.p-toast-detail {
+  color: #334155 !important;
+  font-size: 18px !important;
+}
+
+.page-container {
+  margin-top: 90px;
+  padding: 40px;
+  h1 {
+    color: #474747;
+  }
+}
+@media (max-width: 600px) {
+  .page-container {
+    padding: 40px 20px;
+  }
+}
+
+
+.userCenterBtn {
+  display: block;
+  @media (max-width: 600px) {
+    display: none !important;
+  }
+}

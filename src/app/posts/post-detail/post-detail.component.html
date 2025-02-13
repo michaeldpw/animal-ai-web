@@ -1,0 +1,19 @@
+<div class="page-container" *ngIf="post">
+  <div class="post-detail">
+    <ng-container *ngIf="!isLoading">
+      <div *ngIf="post.title" class="post-detail-title">{{post.title}}</div>
+      <div class="post-detail-time">{{post['updatedAt'] | date:'yyyy年MM月dd日 HH:mm'}}</div>
+      <div [innerHTML]="post.content" class="post-detail-content"></div>
+      <div class="author">
+        <img *ngIf="post['author']['avatarUrl']" [src]="post['author']['avatarUrl']"/>
+        <img *ngIf="!post['author']['avatarUrl']"
+             src="https://zmk-dpw-s3-bucket.s3.ap-southeast-1.amazonaws.com/static/default-user-image.png"/>
+        {{post.author?.nickName}}</div>
+    </ng-container>
+    <ng-container *ngIf="isLoading">
+      <i class="pi pi-spin pi-spinner" style="font-size: 2rem; color: #3d3d3d"></i>
+    </ng-container>
+
+  </div>
+
+</div>

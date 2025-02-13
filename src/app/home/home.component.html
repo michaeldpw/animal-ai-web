@@ -1,0 +1,13 @@
+<div class="home-wrapper">
+  <div id="canvas_container" #canvas_container></div>
+  <div class="home-container">
+    <h1>ZMK ∞ DPW</h1>
+<!--    <h1 *ngIf="currentUser?.user?.id">你好, ❤️ {{currentUser?.user?.nickName}} ❤️</h1>-->
+
+    <button *ngIf="!currentUser?.user?.id" class="enter" routerLink="/login">
+      <i class="pi pi-arrow-right" style="font-size: 24px"></i>
+    </button>
+  </div>
+</div>
+
+

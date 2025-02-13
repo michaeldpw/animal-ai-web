@@ -1,0 +1,16 @@
+
+
+<div class="page-container new-post">
+  <h1>发表文字</h1>
+  <form [formGroup]="form" (ngSubmit)="submit($event)">
+    <h2>标题</h2>
+    <input formControlName="title" name="title" type="text" class="title-input">
+    <div *ngIf="fc['title'].errors && isSubmitted" style="color: #f86161">请输入标题</div>
+    <h2>正文</h2>
+    <p-editor formControlName="content" [style]="{ height: '320px' }" />
+    <div style="display: flex; justify-content: right; margin-top: 40px">
+      <p-button type="submit" label="{{isSubmitting ? '发布中...' : '发布'}}" icon="pi pi-send" iconPos="right" [raised]="true" [disabled]="isSubmitting"/>
+    </div>
+
+  </form>
+</div>

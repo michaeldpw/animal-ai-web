@@ -1,0 +1,35 @@
+.post-detail {
+  max-width: 800px;
+  margin: 0 auto;
+  padding-top: 40px;
+  .post-detail-title {
+    font-size: 24px;
+    color: #474747;
+    margin-bottom: 10px;
+
+  }
+  .post-detail-time {
+    margin-bottom: 60px;
+    color: #9a9a9a;
+
+  }
+  .post-detail-content {
+    font-size: 18px;
+    color: #474747;
+  }
+
+  .author {
+    color: #474747;
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      object-fit: contain;
+      margin-right: 8px;
+    }
+
+  }
+}
