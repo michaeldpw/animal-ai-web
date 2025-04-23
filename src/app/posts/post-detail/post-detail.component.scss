@@ -1,7 +1,9 @@
 .post-detail {
-  max-width: 800px;
+  max-width: 700px;
   margin: 0 auto;
-  padding-top: 40px;
+  background: #fff;
+  padding: 16px;
+  border-radius: 8px;
   .post-detail-title {
     font-size: 24px;
     color: #474747;
@@ -16,6 +18,7 @@
   .post-detail-content {
     font-size: 18px;
     color: #474747;
+    word-break: break-word;
   }
 
   .author {

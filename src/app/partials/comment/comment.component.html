@@ -1,0 +1,87 @@
+<div class="comment-container">
+  <h3>评论</h3>
+  <div class="flex mt-4 mb-4">
+<!--    <div>-->
+<!--      <p-avatar *ngIf="!user.user.avatarUrl" image="https://zmk-dpw-s3-bucket.s3.ap-southeast-1.amazonaws.com/static/default-user-image.png" class="mr-2" shape="circle" />-->
+<!--      <p-avatar *ngIf="user.user.avatarUrl" image="{{user.user.avatarUrl}}" class="mr-2" shape="circle" />-->
+<!--    </div>-->
+    <form class="w-full" style="position: relative" [formGroup]="form" (ngSubmit)="submit($event)">
+
+        <textarea id="in_label" formControlName="content" placeholder="写点评论" pTextarea rows="3" style="resize: none; padding-bottom: 40px; border-radius: 12px" class="w-full"></textarea>
+      <p-button type="submit"
+                label="{{isSubmitting ? '请稍候...' : '留言'}}"
+                class="absolute right-4 bottom-6 rounded-2xl"
+                icon="pi pi-send" iconPos="right" [raised]="true" [disabled]="isSubmitting"/>
+    </form>
+  </div>
+  <div class="comments">
+    <div *ngFor="let comment of comments" class="comment">
+      <div class="avatar">
+        <img *ngIf="comment['author']['avatarUrl']" [src]="comment['author']['avatarUrl']"/>
+        <img *ngIf="!comment['author']['avatarUrl']"
+             src="https://zmk-dpw-s3-bucket.s3.ap-southeast-1.amazonaws.com/static/default-user-image.png"/>
+      </div>
+      <div class="author">
+        <div>
+          <div class="name">{{comment.author?.nickName}}</div>
+        </div>
+        <div>{{comment.content}}</div>
+        <div class="date" style="display: flex; align-items: center">
+          {{comment.createdAt | date:'yyyy-MM-dd'}}
+          <button style="color: #3d3d3d; font-size: 14px; margin-left: 12px" (click)="handleCommentButtonClick(comment)">回复</button>
+        </div>
+        <div *ngIf="comment.isCommentInputOpen" class="sub-comment-area">
+          <img *ngIf="user['user']['avatarUrl']" [src]="user['user']['avatarUrl']"/>
+          <img *ngIf="!user['user']['avatarUrl']"
+               src="https://zmk-dpw-s3-bucket.s3.ap-southeast-1.amazonaws.com/static/default-user-image.png"/>
+          <form class="w-full" style="position: relative"  (ngSubmit)="submitSubComment($event, comment)">
+            <textarea [(ngModel)]="comment.subComment"
+                      [ngModelOptions]="{standalone: true}"
+                      placeholder="{{'回复@' + comment['author']['nickName']+':'}}" pTextarea rows="3" style="resize: none; padding-bottom: 40px; border-radius: 12px" class="w-full"></textarea>
+            <p-button type="submit"
+                      label="{{comment.isSubCommentSubmiting ? '请稍候...' : '回复'}}"
+                      class="absolute right-3 bottom-4 rounded-2xl"
+                       iconPos="right" [raised]="true" [disabled]="comment.isSubCommentSubmiting"/>
+          </form>
+        </div>
+        <div class="nested-comments">
+          <div class="nested-comment" *ngFor="let item of comment.replies">
+            <img *ngIf="item['author']['avatarUrl']" [src]="item['author']['avatarUrl']"/>
+            <img *ngIf="!item['author']['avatarUrl']"
+                 src="https://zmk-dpw-s3-bucket.s3.ap-southeast-1.amazonaws.com/static/default-user-image.png"/>
+            <div class="author">
+              <div>
+                <div class="name">
+                  {{item.author?.nickName}}
+                  <i class="pi pi-angle-double-right" style="margin: 0 8px"></i>
+                  {{item.replyTo?.nickName}}
+                </div>
+              </div>
+              <div>{{item.content}}</div>
+              <div class="date" style="display: flex; align-items: center">
+                {{item.createdAt | date:'yyyy-MM-dd'}}
+                <button style="color: #3d3d3d; font-size: 14px; margin-left: 12px" (click)="handleCommentButtonClick(item)">回复</button>
+              </div>
+              <div *ngIf="item.isCommentInputOpen" class="replyTo-nested-comment-area">
+<!--                <img *ngIf="user['avatarUrl']" [src]="user['avatarUrl']"/>-->
+<!--                <img *ngIf="!user['avatarUrl']"-->
+<!--                     src="https://zmk-dpw-s3-bucket.s3.ap-southeast-1.amazonaws.com/static/default-user-image.png"/>-->
+                <form class="w-full" style="position: relative"  (ngSubmit)="submitSubComment($event, item, comment)">
+            <textarea [(ngModel)]="item.subComment"
+                      [ngModelOptions]="{standalone: true}"
+                      placeholder="{{'回复@' + item['author']['nickName']+':'}}" pTextarea rows="3" style="resize: none; padding-bottom: 40px; border-radius: 12px" class="w-full"></textarea>
+                  <p-button type="submit"
+                            label="{{item.isSubCommentSubmiting ? '回复中...' : '回复'}}"
+                            class="absolute right-3 bottom-4 rounded-2xl"
+                            iconPos="right" [raised]="true" [disabled]="item.isSubCommentSubmiting"/>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>

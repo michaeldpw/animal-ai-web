@@ -8,6 +8,10 @@ import { PostDetailComponent } from './post-detail/post-detail.component';
 import {EditorModule} from 'primeng/editor';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {PaginatorModule} from 'primeng/paginator';
+import {CommentComponent} from '../partials/comment/comment.component';
+import {AvatarModule} from 'primeng/avatar';
+import {FloatLabelModule} from 'primeng/floatlabel';
+import {TextareaModule} from 'primeng/textarea';
 
 
 
@@ -15,16 +19,20 @@ import {PaginatorModule} from 'primeng/paginator';
   declarations: [
     PostsComponent,
     NewPostComponent,
-    PostDetailComponent
+    PostDetailComponent,
+    CommentComponent
   ],
   imports: [
     CommonModule,
-  PostsRoutingModule,
+    PostsRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     ButtonModule,
     EditorModule,
-    PaginatorModule
+    PaginatorModule,
+    AvatarModule,
+    FloatLabelModule,
+    TextareaModule
   ],
   providers: [DatePipe]
 })

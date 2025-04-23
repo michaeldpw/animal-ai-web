@@ -32,51 +32,53 @@ import {DrawerModule} from 'primeng/drawer';
 import {TimelineModule} from "primeng/timeline";
 import {CardModule} from 'primeng/card';
 import {AnimateOnScrollModule} from 'primeng/animateonscroll';
+import { CommentComponent } from './partials/comment/comment.component';
 
 registerLocaleData(zh);
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    HomeComponent,
-    LoginComponent,
-    TimelineComponent,
-    RegisterComponent,
-    // HeaderComponent
+    declarations: [
+        AppComponent,
+        HeaderComponent,
+        HomeComponent,
+        LoginComponent,
+        TimelineComponent,
+        RegisterComponent,
 
-  ],
-  imports: [
-    CommonModule,
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    ToastrModule.forRoot({
-      timeOut: 3000,
-      positionClass: 'toast-bottom-center',
-      newestOnTop: false
-    }),
-    BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MenuModule, BadgeModule, RippleModule, AvatarModule, ButtonModule, IconFieldModule, ToastModule, DrawerModule, TimelineModule, CardModule, AnimateOnScrollModule
+    ],
+    imports: [
+        CommonModule,
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        ToastrModule.forRoot({
+            timeOut: 3000,
+            positionClass: 'toast-bottom-center',
+            newestOnTop: false
+        }),
+        BrowserAnimationsModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MenuModule, BadgeModule, RippleModule, AvatarModule, ButtonModule, IconFieldModule, ToastModule, DrawerModule, TimelineModule, CardModule, AnimateOnScrollModule
 
-  ],
-  providers: [
-    provideAnimationsAsync(),
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    providePrimeNG({
-      theme: {
-        preset: Aura,
-        options: {
-          darkModeSelector: false
-        }
-      }
-    }),
-    { provide: LOCALE_ID, useValue: 'zh-CN' },
-    MessageService
-  ],
-  bootstrap: [AppComponent]
+    ],
+    providers: [
+        provideAnimationsAsync(),
+        {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+        providePrimeNG({
+            theme: {
+                preset: Aura,
+                options: {
+                    darkModeSelector: false
+                }
+            }
+        }),
+        {provide: LOCALE_ID, useValue: 'zh-CN'},
+        MessageService
+    ],
+    exports: [
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

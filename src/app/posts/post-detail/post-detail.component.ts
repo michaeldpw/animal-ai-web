@@ -1,6 +1,7 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {PostService} from '../../services/post.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {CommentService} from '../../services/comment.service';
 
 @Component({
   selector: 'app-post-detail',
@@ -14,7 +15,7 @@ export class PostDetailComponent implements OnInit{
   postID: string;
   post: any;
   isLoading: boolean = true;
-  constructor(private postService: PostService, private router: Router, private route: ActivatedRoute, private cdr: ChangeDetectorRef) {
+  constructor(private postService: PostService, private commentService: CommentService, private router: Router, private route: ActivatedRoute, private cdr: ChangeDetectorRef) {
     this.postID = this.route.snapshot.params['id'];
     console.log(this.postID);
   }
@@ -30,7 +31,9 @@ export class PostDetailComponent implements OnInit{
       (error => {
         this.isLoading = false;
         this.cdr.detectChanges();
-      }))
+      }));
+
+
   }
 
 

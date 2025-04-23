@@ -1,4 +1,4 @@
-<div class="page-container" *ngIf="post">
+<div class="page-container" *ngIf="post" style="background: #f4f2ee">
   <div class="post-detail">
     <ng-container *ngIf="!isLoading">
       <div *ngIf="post.title" class="post-detail-title">{{post.title}}</div>
@@ -13,7 +13,7 @@
     <ng-container *ngIf="isLoading">
       <i class="pi pi-spin pi-spinner" style="font-size: 2rem; color: #3d3d3d"></i>
     </ng-container>
+    <app-comment *ngIf="post" [post]="post"/>
 
   </div>
-
 </div>

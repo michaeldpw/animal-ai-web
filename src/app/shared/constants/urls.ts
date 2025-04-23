@@ -23,3 +23,8 @@ export const POST_CREATION_URL = BASE_URL + '/posts/create';
 
 export const TIMELINE_URL = BASE_URL + '/timeline';
 export const TIMELINE_CREATION_URL = BASE_URL + '/timeline/create';
+
+export const COMMENT_CREATION_URL = BASE_URL + '/comments/create';
+export const COMMENT_SEARCH_URL = BASE_URL + '/comments';
+
+

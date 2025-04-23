@@ -29,4 +29,8 @@ export class PostService {
   createPost(title: any, content: any, userId: string) {
     return this.http.post(`${POST_CREATION_URL}`, {title, content, userId});
   }
+
+  getAllCommentsByPostId(postId: string) {
+    return this.http.get(`${POST_URL}/${postId}/comments`);
+  }
 }
