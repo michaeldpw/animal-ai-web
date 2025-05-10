@@ -58,6 +58,22 @@
                 </a>
 
               </li>
+              <li>
+                <a
+                  (click)="menuItemClicked('/places')"
+                  pRipple
+                  pStyleClass="@next"
+                  enterFromClass="hidden"
+                  enterActiveClass="animate-slidedown"
+                  leaveToClass="hidden"
+                  leaveActiveClass="animate-slideup"
+                  class="flex items-center cursor-pointer p-4 rounded-border text-zinc-600 duration-150 transition-colors p-ripple"
+                >
+                  <i class="pi pi-map mr-2"></i>
+                  <span class="font-medium">去过</span>
+                </a>
+
+              </li>
             </ul>
           </li>
         </ul>

@@ -58,3 +58,13 @@ body {
     display: none !important;
   }
 }
+
+.mapboxgl-ctrl-geocoder {
+  width: 100% !important;
+}
+.mapboxgl-ctrl-geocoder--input {
+  height: 42px !important;
+}
+.mapboxgl-ctrl-geocoder--icon {
+  top: 12px !important;
+}

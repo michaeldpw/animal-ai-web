@@ -1,0 +1,22 @@
+<div class="places-container">
+  <p-button class="add-place" label="添加地点" icon="pi pi-plus" iconPos="left" (click)="showDrawer()" />
+  <p-drawer header="添加地点"
+            [(visible)]="drawerVisible"
+            position="right"
+            (onHide)="onDrawerClose()">
+    <div id="geocoder-container" style="margin: 1rem 0"></div>
+    <div style="margin-top: 1rem;">
+      <p-floatlabel variant="in" style="margin-bottom: 12px">
+        <input pInputText id="in_label" [(ngModel)]="longitude" autocomplete="off" style="width: 100%" />
+        <label for="in_label">经度</label>
+      </p-floatlabel>
+      <p-floatlabel variant="in" style="margin-bottom: 12px">
+        <input pInputText id="in_label" [(ngModel)]="latitude" autocomplete="off" style="width: 100%"/>
+        <label for="in_label">纬度</label>
+      </p-floatlabel>
+    </div>
+    <p-button class="add-place" label="添加" iconPos="left" (click)="submitLocation()" [style]="{'width': '100%'}"/>
+
+  </p-drawer>
+  <div id="map" style="width: 100%; height: 100%"></div>
+</div>

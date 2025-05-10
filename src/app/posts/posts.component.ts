@@ -5,6 +5,7 @@ import {PostService} from '../services/post.service';
 import {UserService} from '../services/user.service';
 import {MessageService} from 'primeng/api';
 import {Router} from '@angular/router';
+import {PlaceService} from '../services/place.service';
 
 @Component({
   selector: 'app-posts',

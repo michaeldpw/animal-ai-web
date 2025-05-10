@@ -22,6 +22,10 @@ const routes: Routes = [
 
   },
   {
+    path: 'places',
+    loadChildren: () => import('./places/places.module').then((m) => m.PlacesModule)
+  },
+  {
     path: 'posts',
     loadChildren: () => import('./posts/posts.module').then((m) => m.PostsModule),
   },

@@ -1,0 +1,12 @@
+.places-container {
+  margin-top: 90px;
+  height: calc(100vh - 90px);
+  position: relative;
+  .add-place {
+    position: absolute;
+    top: 24px;
+    left: 20px;
+    z-index: 2;
+  }
+
+}

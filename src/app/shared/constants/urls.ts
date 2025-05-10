@@ -27,4 +27,6 @@ export const TIMELINE_CREATION_URL = BASE_URL + '/timeline/create';
 export const COMMENT_CREATION_URL = BASE_URL + '/comments/create';
 export const COMMENT_SEARCH_URL = BASE_URL + '/comments';
 
+export const PLACE_URL = BASE_URL + '/place';
+
 
