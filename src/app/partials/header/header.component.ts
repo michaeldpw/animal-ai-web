@@ -4,6 +4,7 @@ import {User} from "../../shared/models/Users";
 import {MenuItem, MessageService} from 'primeng/api';
 import {NavigationEnd, Router} from '@angular/router';
 import {GlobalService} from '../../services/global.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -16,6 +17,8 @@ export class HeaderComponent implements OnInit {
   user!:any;
   items: MenuItem[] | undefined;
   isTransparentMode: boolean = true;
+  private sub!: Subscription;
+  sidebarVisible = false;
   constructor(private userService: UserService,
               private router: Router,
               private messageService: MessageService,
@@ -24,6 +27,11 @@ export class HeaderComponent implements OnInit {
     // this.cdr.detectChanges();
     // console.log('aaa', this.isTransparentMode)
 
+    this.sub = this.globalService.sidebarVisible$.subscribe(v => {
+      console.log(v);
+      this.sidebarVisible = v;
+      this.cdr.detectChanges();
+    });
 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
@@ -102,8 +110,14 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.userService.logout(true).subscribe(res => {
+      this.globalService.setSidebarState(false);
+      this.globalService.setSidebarHiddenState(true);
       this.messageService.add({ severity: 'success', summary: '再见', detail: `登出成功` });
     });
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
 }

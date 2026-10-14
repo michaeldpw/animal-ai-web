@@ -1,9 +1,16 @@
 
 
 <div class="app-container">
-  <app-header *ngIf="user.user?.id"></app-header>
-  <router-outlet></router-outlet>
+  <div class="app-main" >
+    <app-sidebar *ngIf="user.user?.id"/>
+    <div class="app-route-container" [ngClass]="{'no-margin-left': !user?.user?.id}" [class.open]="isSidebarVisible" [class.sidebarHidden]="isSidebarHidden">
+      <app-header *ngIf="user.user?.id" style="position: fixed;z-index: 10"></app-header>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
 </div>
+
 <p-drawer #drawerRef [(visible)]="isDrawerOpen" (visibleChange)="drawerStateChanged($event)">
   <ng-template #headless>
     <div class="flex flex-col h-full">

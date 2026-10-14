@@ -1,0 +1,24 @@
+.app-container {
+  .app-main {
+    display: flex;
+    .app-route-container {
+      width: calc(100vw - 50px);
+      margin-left: 50px;
+      transition: .2s ease-in-out;
+      &.no-margin-left {
+        margin-left: 0 !important;
+        width: 100%;
+      }
+      &.open {
+          width: calc(100vw - 300px);
+          margin-left: 300px;
+      }
+      &.sidebarHidden {
+        width: 100vw;
+        margin-left: 0;
+      }
+    }
+
+  }
+
+}

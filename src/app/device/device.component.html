@@ -1,0 +1,50 @@
+<div class="device-container">
+  <h1>硬件设备</h1>
+  <div class="device-row">
+    <div class="label">设备ID</div>
+    <div class="value">{{device.deviceId}}</div>
+  </div>
+  <div class="device-row">
+    <div class="label">设备名称</div>
+    <div class="value">{{device.deviceName}}</div>
+  </div>
+  <div class="device-row">
+    <div class="label">设备位置</div>
+    <div class="value">{{device.location}}</div>
+  </div>
+  <div class="device-row">
+    <div class="label">创建时间</div>
+    <div class="value">
+      <ng-container *ngIf="device">
+        {{device.createdAt | date: 'yyyy-MM-dd HH:mm:ss'}}
+      </ng-container>
+      <ng-container *ngIf="!device">
+        <i class="pi pi-spin pi-spinner" style="font-size: 2rem; color: #3d3d3d;"></i>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="device-row">
+    <div class="label">设备状态</div>
+    <div class="value" [ngClass]="{'online': onlineDetails?.online, 'offline': !onlineDetails?.online}">
+      <ng-container *ngIf="onlineDetails">
+        {{onlineDetails.online ? '在线' : '离线'}}
+      </ng-container>
+      <ng-container *ngIf="!onlineDetails">
+        <i class="pi pi-spin pi-spinner" style="font-size: 2rem; color: #3d3d3d;"></i>
+      </ng-container>
+    </div>
+  </div>
+  <div class="device-row" *ngIf="!onlineDetails?.online">
+    <div class="label">最后一次在线时间</div>
+    <div class="value">
+      <ng-container *ngIf="onlineDetails">
+        {{onlineDetails.lastHeartbeat | date: 'yyyy-MM-dd HH:mm:ss'}}
+      </ng-container>
+      <ng-container *ngIf="!onlineDetails">
+        <i class="pi pi-spin pi-spinner" style="font-size: 2rem; color: #3d3d3d;"></i>
+      </ng-container>
+    </div>
+  </div>
+
+</div>

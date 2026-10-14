@@ -1,0 +1,36 @@
+.email-container {
+  padding: 75px 24px;
+
+  h1 {
+    margin-top: 24px;
+  }
+
+
+  .email-input {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
+    .input-email {
+      flex: 1;
+      max-width: 500px;
+      outline: none;
+      border: 1px solid #ababab;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 20px;
+      transition: .2s all ease-in-out;
+      &:focus {
+        box-shadow: 0 0 0 3px rgba(148, 217, 255, 0.81);
+        border-color: #0082b7;
+      }
+    }
+  }
+
+  .empty-text {
+    text-align: left;
+    color: #888;
+    margin-top: 2rem;
+    font-size: 20px;
+  }
+}

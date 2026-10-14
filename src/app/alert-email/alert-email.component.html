@@ -1,0 +1,54 @@
+<div class="email-container">
+  <h1>预警邮件设置</h1>
+
+  <!-- 添加邮箱 -->
+  <div class="email-input">
+    <input
+      type="email"
+      pInputText
+      placeholder="请输入邮箱地址"
+      [(ngModel)]="newEmail"
+      class="input-email"
+    />
+    <button pButton label="添加邮箱" icon="pi pi-plus" (click)="addEmail()"></button>
+  </div>
+
+  <p-table
+    [value]="emails"
+    *ngIf="emails.length"
+    [loading]="loading"
+    [tableStyle]="{ 'min-width': '40rem' }"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>邮箱地址</th>
+        <th>状态</th>
+        <th>创建时间</th>
+        <th>操作</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-email>
+      <tr>
+        <td>{{ email.email }}</td>
+        <td>
+          <p-tag severity="success" *ngIf="email.active" value="已启用"></p-tag>
+          <p-tag severity="secondary" *ngIf="!email.active" value="停用"></p-tag>
+        </td>
+        <td>{{ email.createdAt | date: 'yyyy-MM-dd HH:mm' }}</td>
+        <td>
+          <button
+            pButton
+            icon="pi pi-trash"
+            class="p-button-danger p-button-rounded"
+            (click)="deleteEmail(email._id)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <p *ngIf="!emails.length && !loading" class="empty-text">
+    暂无邮箱，请添加。
+  </p>
+</div>

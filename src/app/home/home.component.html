@@ -1,13 +1,73 @@
 <div class="home-wrapper">
-  <div id="canvas_container" #canvas_container></div>
-  <div class="home-container">
-    <h1>ZMK ∞ DPW</h1>
-<!--    <h1 *ngIf="currentUser?.user?.id">你好, ❤️ {{currentUser?.user?.nickName}} ❤️</h1>-->
 
-    <button *ngIf="!currentUser?.user?.id" class="enter" routerLink="/login">
-      <i class="pi pi-arrow-right" style="font-size: 24px"></i>
-    </button>
+ <h1>控制中心</h1>
+  <div class="statuses">
+    <div class="camera-status panel">
+      <div class="indicator" [ngClass]="{'online': isDeviceOnline, 'offline': !isDeviceOnline}"></div>
+      <p>远程摄像头</p><p class="status" [ngClass]="{'online': isDeviceOnline, 'offline': !isDeviceOnline}">
+      {{isDeviceOnline ? '在线' : '离线'}} {{!isDeviceOnline && device?.offlineCount <= 3 ? '(尝试重接中)' : ''}}
+      <i *ngIf="!isDeviceOnline && device?.offlineCount <= 3" class="pi pi-spin pi-spinner" style="font-size: 2rem; position: absolute; top: 20px; right: 24px"></i>
+    </p>
+
+    </div>
+    <div class="network-status panel">
+      <div class="indicator"></div>
+      <p>模型加载状态</p><p class="status">正常</p>
+
+    </div>
   </div>
+  <div class="charts">
+    <div class="confidence panel">
+      <h2>置信度监测</h2>
+      <p-chart
+        type="line"
+        [data]="lineData"
+        [options]="lineOptions"
+        style="width: 100%; height: 320px;">
+      </p-chart>
+    </div>
+    <div class="calendar panel">
+      <h2>异常占比</h2>
+      <p-chart
+        type="pie"
+        [data]="pieData"
+        [options]="pieOptions"
+        style="width: 100%; height: 320px;">
+      </p-chart>
+    </div>
+    <div class="calendar panel">
+      <h2>异常日期</h2>
+      <p-calendar
+        [(ngModel)]="date"
+        [inline]="true"
+        dateFormat="yy-mm-dd"
+      >
+        <ng-template pTemplate="date" let-day>
+          <div
+            class="custom-day"
+            [class.low-confidence]="isLowConfidenceDay(day)">
+            {{ day.day }}
+          </div>
+        </ng-template>
+      </p-calendar>
+
+    </div>
+  </div>
+  <div class="log">
+    <div class="panel">
+      <h2>异常报告</h2>
+      <p>暂无</p>
+    </div>
+  </div>
+
+<!--  <div id="canvas_container" #canvas_container></div>-->
+<!--  <div class="home-container">-->
+<!--    <h1>ZMK ∞ DPW</h1>-->
+
+<!--    <button *ngIf="!currentUser?.user?.id" class="enter" routerLink="/login">-->
+<!--      <i class="pi pi-arrow-right" style="font-size: 24px"></i>-->
+<!--    </button>-->
+<!--  </div>-->
 </div>
 
 

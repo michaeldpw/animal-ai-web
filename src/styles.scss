@@ -68,3 +68,101 @@ body {
 .mapboxgl-ctrl-geocoder--icon {
   top: 12px !important;
 }
+
+// _mixins.scss
+/// 毛玻璃 mixin
+/// $blur    - 模糊半径(px)
+/// $bg-alpha - 背景透明度 (0~1)
+/// $border-color - 边框颜色 (RGBA 推荐)
+/// $fallback-bg - 当不支持 backdrop-filter 时的背景色
+/// $use-pseudo - 是否使用伪元素实现更稳定的效果（true/false）
+@mixin frosted-glass(
+  $blur: 10px,
+  $bg-alpha: 0.25,
+  $border-color: rgba(255,255,255,0.18),
+  $fallback-bg: rgba(255,255,255,0.08),
+  $use-pseudo: true
+) {
+  position: relative;
+  // 元素自身半透明背景（便于在不支持 backdrop-filter 时也能看起来像毛玻璃）
+  background-color: rgba(255,255,255, $bg-alpha);
+  // 边框、圆角、阴影
+  border: 1px solid $border-color;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  overflow: hidden; // 保证伪元素不溢出
+  backdrop-filter: blur($blur); /* 标准 */
+  -webkit-backdrop-filter: blur($blur); /* Safari / iOS */
+  // 兼容性：如果 backdrop-filter 不生效，使用稍微不透明的背景作为降级
+  // 这里已经通过 background-color 实现。
+
+  @if $use-pseudo {
+    // 伪元素法：把模糊放在 ::before，以便更灵活地控制（更兼容一些浏览器）
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0; // top:0;right:0;bottom:0;left:0;
+      // 伪元素背景必须是透明的，否则看不到后面内容；主要用于触发 backdrop-filter
+      background: transparent;
+      backdrop-filter: blur($blur);
+      -webkit-backdrop-filter: blur($blur);
+      pointer-events: none;
+    }
+  }
+}
+
+::ng-deep .p-accordion {
+  background: transparent !important; // 去掉默认白底
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* 每个 Accordion 面板 */
+::ng-deep .p-accordionpanel {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  border: none !important;
+  // 为 Safari 加前缀
+  -webkit-backdrop-filter: blur(80px);
+  backdrop-filter: blur(80px);
+  background: rgba(255, 255, 255, 0.15);
+  transition: all 0.3s ease;
+
+  // 阴影与悬浮
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  // 深色模式支持
+  .dark & {
+    background: rgba(20, 20, 20, 0.35);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* header 样式 */
+::ng-deep .p-accordionheader {
+  background: transparent !important;
+  color: #fff !important;
+  font-weight: 300;
+  border: none !important;
+  font-size: 20px !important;
+}
+
+/* 内容区 */
+::ng-deep .p-accordioncontent-content {
+  background: transparent !important;
+  color: #fff !important;
+  position: relative;
+  z-index: 1;
+  border: none;
+}
+
+/* 图标也调亮 */
+::ng-deep .p-accordion-header .p-accordion-toggle-icon {
+  color: #fff !important;
+}

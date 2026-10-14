@@ -1,26 +1,74 @@
 <div class="login-container">
-  <h1>登录</h1>
-  <div class="login-card">
-    <form [formGroup]="loginForm" (ngSubmit)="submit()">
-      <div class="zmkdpw-input-group">
-        <label>电子邮箱</label>
-        <input name="username" placeholder="电子邮箱" type="email" formControlName="email"/>
-        <div *ngIf="fc['email'].errors && isSubmitted" class="error-list">请输入正确的电子邮箱地址</div>
-      </div>
-      <div class="zmkdpw-input-group">
-        <label>密码</label>
-        <input name="password" placeholder="密码" type="password" formControlName="password"/>
-        <div *ngIf="fc['password'].errors && isSubmitted" class="error-list">请输入正确的密码</div>
-      </div>
-      <button  type="submit" [disabled]="isSubmitting">
-        <ng-container *ngIf="!isSubmitting">登录</ng-container>
-        <ng-container *ngIf="isSubmitting">
-          <i  class="pi pi-spin pi-spinner" style="font-size: 16px; color: #fff"></i>
-          登录中...
-        </ng-container>
-      </button>
-
-    </form>
+  <div class="login-container-inner">
   </div>
-  <div class="hint">还没有账号？<a routerLink="/register">注册</a></div>
+  <div class="grid-image">
+
+  </div>
+  <div class="illustration">
+    <img src="/assets/images/login-image.png" alt="">
+  </div>
+    <div class="left">
+
+      <p-accordion>
+        <p-accordion-panel value="0">
+          <p-accordion-header>平台简介</p-accordion-header>
+          <p-accordion-content>
+            <p class="m-0">
+              本平台旨在通过畜牧疾病图像识别，实现牛只健康的实时监测与早期预警，降低人工巡检成本，提高养殖管理效率。系统以树莓派为前端智能感知终端，结合云服务器实现远程数据交互与控制。树莓派安装Ubuntu系统，连接摄像头定时采集牛只图像，通过4G物联网卡接入网络，将图像上传至云端进行疾病识别。云服务器基于Node.js与MongoDB搭建，用于存储、处理与展示前端上传的数据，并调用训练好的AI模型对牛只图像进行病情判断，如发现异常及时生成报警。用户可通过Web端或移动端查看实时图像、识别结果及历史记录，实现远程监控和管理。该系统不仅提升了畜牧养殖过程的自动化和智能化水平，还可快速发现疾病隐患，保障畜牧健康。整体方案结构清晰、部署灵活，体现“边缘智能 + 云端协同”的设计理念，兼具教学、科研及实际应用价值。
+            </p>
+          </p-accordion-content>
+        </p-accordion-panel>
+
+        <p-accordion-panel value="1">
+          <p-accordion-header>平台特色</p-accordion-header>
+          <p-accordion-content>
+            <p class="m-0">
+              物联网与人工智能技术的迅速发展，为畜牧业提供了新的解决方案。边缘计算设备如树莓派具备低成本、小体积和灵活部署的特点，结合摄像头能够在养殖场内实现全天候、定时采集牛只图像；4G/5G物联网卡可以保证在无固定网络环境下实现数据上传；云端服务器则提供数据存储、AI模型推理与报警功能，使养殖管理者能够远程监控牛群健康状况。通过图像识别技术，系统能够自动分析牛只的外观特征，识别潜在疾病，实现早期预警，辅助决策。
+            </p>
+          </p-accordion-content>
+        </p-accordion-panel>
+
+        <p-accordion-panel value="2">
+          <p-accordion-header>团队成员</p-accordion-header>
+          <p-accordion-content>
+            <p class="m-0">
+              杜培文 许照慧
+            </p>
+          </p-accordion-content>
+        </p-accordion-panel>
+      </p-accordion>
+    </div>
+    <div class="right frost">
+      <div class="login-card">
+        <h1>智瞳诊牧</h1>
+        <h1 style="margin-bottom: 80px">（AI动物疾病识别预警平台）</h1>
+
+        <form [formGroup]="loginForm" (ngSubmit)="submit()">
+          <div class="zmkdpw-input-group">
+            <label>电子邮箱</label>
+            <input name="username" placeholder="电子邮箱" type="email" formControlName="email"/>
+            <div *ngIf="fc['email'].errors && isSubmitted" class="error-list">请输入正确的电子邮箱地址</div>
+          </div>
+          <div class="zmkdpw-input-group">
+            <label>密码</label>
+            <input name="password" placeholder="密码" type="password" formControlName="password"/>
+            <div *ngIf="fc['password'].errors && isSubmitted" class="error-list">请输入正确的密码</div>
+          </div>
+          <button  type="submit" [disabled]="isSubmitting">
+            <ng-container *ngIf="!isSubmitting">登录</ng-container>
+            <ng-container *ngIf="isSubmitting">
+              <i  class="pi pi-spin pi-spinner" style="font-size: 16px; color: #fff"></i>
+              登录中...
+            </ng-container>
+          </button>
+
+        </form>
+      </div>
+      <div class="hint">还没有账号？<a routerLink="/register">注册</a></div>
+
+    </div>
+
+
+
+
 </div>

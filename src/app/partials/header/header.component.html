@@ -1,17 +1,17 @@
-<div class="header-wrapper" [ngClass]="isTransparentMode || isTransparentMode === undefined ? 'navbar-transparent' : ''">
-  <div class="nav-item-wrapper">
-    <a [routerLink]="'/home'">首页</a>
+<div class="header-wrapper"  [class.open]="sidebarVisible">
 
-    <a [routerLink]="'/timeline'">时间轴</a>
+<!--  <div class="nav-item-wrapper">-->
+<!--    <a [routerLink]="'/home'">首页</a>-->
 
-    <a [routerLink]="'/posts'">帖子</a>
-    <a [routerLink]="'/places'">去过</a>
+<!--    <a [routerLink]="'/timeline'">时间轴</a>-->
 
-    <!--    <a [routerLink]="'/messages'">消息</a>-->
-  </div>
+<!--    <a [routerLink]="'/posts'">帖子</a>-->
+<!--    <a [routerLink]="'/places'">去过</a>-->
+
+<!--  </div>-->
   <p-button (click)="toggleDrawer()" icon="pi pi-bars" class="toggle-drawer-btn"/>
 
-  <p-menu #menu [model]="items" [popup]="true" class="flex justify-center" styleClass="w-full md:w-60">
+  <p-menu #menu [model]="items" [popup]="true" class="flex justify-center"  styleClass="w-full md:w-60">
     <ng-template #item let-item>
       <a pRipple class="flex items-center p-menu-item-link" *ngIf="!item.icon.includes('sign-out')" routerLink="{{item.link}}">
         <span [class]="item.icon"></span>

@@ -1,0 +1,37 @@
+<div class="upload-container">
+  <h1>手动上传和诊断</h1>
+  <div class="upload-container" *ngIf="!imagePreview" (click)="input.click()">
+    <label class="upload-label">
+      <i class="pi pi-cloud-upload"></i>
+      <p>点击或拖拽图片到这里</p>
+    </label>
+    <input
+      #input
+      type="file"
+      id="fileInput"
+      accept="image/*"
+      [multiple]="false"
+      (change)="onFileSelected($event)"
+    />
+  </div>
+
+  <div class="preview-container" *ngIf="imagePreview">
+    <img [src]="imagePreview" alt="Preview" class="preview-img" />
+    <div class="preview-actions">
+      <button pButton label="重新选择" icon="pi pi-refresh" (click)="clearImage()" class="p-button-text" [disabled]="isLoading"></button>
+      <button pButton label="{{isLoading ? '识别中' : '上传并识别'}}" icon="pi {{isLoading ? 'pi-spinner-dotted pi-spin' : 'pi-upload'}}" (click)="upload()" class="p-button-success" [disabled]="isLoading"></button>
+    </div>
+  </div>
+  <div *ngIf="result" class="result">
+    <h3>识别结果</h3>
+    <div class="result-row">
+      <div class="label">是否患病</div>
+      <div class="value" [ngClass]="{'sick': result.prediction[0]}">{{result.prediction[0] && result.diseaseChineseName ? '疑似' + result.diseaseChineseName : '未见明显症状'}}</div>
+    </div>
+    <div class="result-row" *ngIf="result.prediction[0]">
+      <div class="label">置信度</div>
+      <div class="value" style="color: #333">{{result.prediction[0].score}}</div>
+    </div>
+    <img *ngIf="result.prediction[0]" [src]="result.debugImage">
+  </div>
+</div>

@@ -1,0 +1,23 @@
+.device-container {
+  padding: 75px 24px;
+  h1 {
+    margin-top: 24px;
+  }
+  .device-row {
+    display: flex;
+    margin-bottom: 20px;
+    font-size: 20px;
+    .label {
+      width: 240px;
+    }
+    .value {
+      &.online {
+        color: #01c758;
+      }
+      &.offline {
+        color: #6c6c6c;
+      }
+    }
+
+  }
+}

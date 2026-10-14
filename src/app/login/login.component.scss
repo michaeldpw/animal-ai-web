@@ -1,13 +1,67 @@
+
+@use '../../styles.scss' as m;
 .login-container {
-  background: #fff;
+  background: #001e2b;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  padding: 0 80px;
+  position: relative;
+
+  .login-container-inner {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: .15;
+    top: 0;
+    left: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox=\"0 0 1840.3 1800.9\" xmlns=\"http://www.w3.org/2000/svg\" preserveAspectRatio=\"none\"><rect x=\"0\" y=\"0\" height=\"100%\" width=\"100%\" fill=\"url(%23grad)\" opacity=\"1\"/><defs><radialGradient id=\"grad\" gradientUnits=\"userSpaceOnUse\" cx=\"0\" cy=\"0\" r=\"10\" gradientTransform=\"matrix(35.627 99.743 -101.93 34.864 920.15 900.44)\"><stop stop-color=\"rgba(83,233,246,1)\" offset=\"0\"/><stop stop-color=\"rgba(83,233,246,0)\" offset=\"0.78125\"/></radialGradient></defs></svg>");
+  z-index: 1;
+  }
+  .grid-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-image: url('https://webimages.mongodb.com/_com_assets/cms/mf557n2bes3hzigeh-lines.svg?auto=format%252Ccompress');
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
+    z-index: 2;
+  }
+  .illustration {
+    z-index: 2;
+    position: absolute;
+    top: calc(50% - 400px);
+    left: 0px;
+    img {
+      display: block;
+      margin: 0 auto;
+      width: auto;
+      max-width: 800px;
+      //height: 50%;
+      object-fit: contain;
+    }
+  }
+
+  .left {
+    flex: 5;
+    margin-top: 240px;
+    margin-right: 200px;
+    z-index: 3;
+
+  }
+  .right {
+    flex: 4;
+    z-index: 3;
+  }
   h1 {
-    color: #333;
-    font-size: 36px;
+    color: #fff;
+    font-size: 42px;
+    margin-bottom: 20px;
+    text-align: center;
     //font-family: 'Oleo Script';
     @media (max-width: 600px) {
       font-size: 30px;
@@ -15,23 +69,22 @@
     }
   }
   .login-card {
-    padding: 48px 36px 36px;
+    //padding: 48px 36px 36px;
     border-radius: 20px;
     margin-top: 36px;
-    width: 500px;
-    background: white;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    //box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+
     @media (max-width: 600px) {
-      padding: 24px;
+      //padding: 24px;
       width: 90%;
     }
     .zmkdpw-input-group {
       margin-bottom: 40px;
       label {
-        color: #333333;
+        color: #fff;
         font-size: 16px;
         margin-bottom: 12px;
         display: block;
@@ -46,13 +99,13 @@
         width: 100%;
         font-size: 20px;
         transition: .2s all ease-in-out;
-        color: #1e1e1e;
+        color: #fff;
         &:hover {
           border-color: #ccc;
         }
         &:focus {
-          box-shadow: 0 0 0 3px rgba(120, 200, 255, 0.81);
-          border-color: #0f9afa;
+          box-shadow: 0 0 0 3px rgba(170, 255, 120, 0.81);
+          border-color: #00ed64;
         }
         @media (max-width: 600px) {
           padding: 16px;
@@ -68,28 +121,36 @@
 
     button {
       border-radius: 12px;
-      background: #000;
-      color: #fff;
-      padding: 20px;
+      background: #00ed64;
+      color: #001e2b;
+      padding: 20px 24px;
       width: 100%;
       outline: none;
       border: none;
-      font-size: 16px;
+      font-size: 20px;
       cursor: pointer;
       margin-top: 20px;
       //font-family: 'Oleo Script';
       &:hover {
-        background: #1e1e1e;
+        background: #00ff70;
       }
 
     }
   }
+
   .hint {
     margin-top: 40px;
+    color: #fff;
     a {
       text-decoration: underline;
     }
   }
 
 }
+
+// component.scss
+
+
+
+
 

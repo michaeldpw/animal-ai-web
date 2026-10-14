@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "zmkdpw": {
+    "animal-ai-web": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -24,7 +24,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/zmkdpw",
+            "outputPath": "dist/animal-ai-web",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -73,10 +73,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "zmkdpw:build:production"
+              "buildTarget": "animal-ai-web:build:production"
             },
             "development": {
-              "buildTarget": "zmkdpw:build:development"
+              "buildTarget": "animal-ai-web:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -107,5 +107,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "96be1b22-b2f0-4e39-b672-1df1dcc0eff6"
   }
 }

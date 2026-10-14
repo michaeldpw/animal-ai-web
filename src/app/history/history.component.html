@@ -1,0 +1,12 @@
+<div class="history-container">
+  <h1>历史记录</h1>
+  <div>
+    <div *ngFor="let item of data">
+      <h2>{{item.date}}</h2>
+      <div class="images-row">
+        <app-image *ngFor="let image of item.images" [image]="image" style="flex: 1"/>
+
+      </div>
+    </div>
+  </div>
+</div>

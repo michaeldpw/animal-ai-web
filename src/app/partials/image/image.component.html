@@ -1,0 +1,21 @@
+<div class="image-item">
+  <img [src]="image.src"/>
+  <div class="description">
+    <div class="row">
+      <div class="label">拍摄时间:</div>
+      <div class="value">{{image.takenAt}}</div>
+    </div>
+    <div class="row">
+      <div class="label">置信度:</div>
+      <div class="value">{{image.confidence}}</div>
+    </div>
+    <div class="row">
+      <div class="label">是否疑似患病:</div>
+      <div class="value">{{image.isIll}}</div>
+    </div>
+    <div class="row">
+      <div class="label">疑似病症:</div>
+      <div class="value">{{image.disease}}</div>
+    </div>
+  </div>
+</div>

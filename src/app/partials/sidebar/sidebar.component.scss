@@ -1,0 +1,100 @@
+.sidebar-container {
+  width: 300px;
+  top: 0;
+  left: -250px;
+  position: fixed;
+  height: 100vh;
+  background: rgb(249, 251, 250);
+  border-right: 1px solid rgb(232, 237, 235);
+  display: flex;
+  flex-direction: column;
+  transition: .2s ease-in-out;
+  .sidebar-header {
+    border-bottom: 1px solid rgb(232, 237, 235);
+    padding: 16px 16px;
+    font-size: 24px;
+    color: #00684a;
+    display: flex;
+    align-items: center;
+    img {
+      margin-right: 8px;
+    }
+  }
+  .sidebar-main {
+    flex: 1;
+    .sidebar-menu {
+      .active {
+        background: #e3fcf7;
+        position: relative;
+
+      }
+      .active::before {
+        background-color: rgb(0, 163, 92);
+        content: "";
+        position: absolute;
+        left: 0px;
+        top: calc(50% - 15px);
+        width: 6px;
+        height: 30px;
+        min-height: 16px;
+        border-radius: 0px 6px 6px 0px;
+      }
+      .sidebar-menu-item {
+        padding: 12px 24px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        font-size: 20px;
+
+        &:hover {
+          background: #e3fcf7;
+        }
+        i {
+          margin-right: 10px;
+          color: #00684a;
+          font-size: 20px;
+        }
+        span {
+          color: #00684a;
+          font-weight: 500;
+        }
+      }
+
+
+
+
+    }
+
+  }
+  .sidebar-footer {
+    height: 49px;
+    border-top: 1px solid rgb(232, 237, 235);
+    button {
+      display: flex;
+      padding: 16px;
+      height: 49px;
+      width: 100%;
+      justify-content: flex-end;
+      svg {
+        path {
+          fill: rgb(92, 108, 117);
+        }
+      }
+    }
+    button:hover {
+      background: #efefef;
+    }
+  }
+}
+.sidebar-container.open {
+  left: 0;
+}
+
+::ng-deep .p-panelmenu {
+  gap: 0 !important;
+}
+
+::ng-deep .p-panelmenu-panel {
+  border: none !important;
+  padding: 10px 0 !important;
+}

@@ -6,12 +6,13 @@ import { Router } from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {MessageService} from 'primeng/api';
 import {UserService} from '../user.service';
+import {GlobalService} from '../global.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   private isRefreshing = false;
   private refreshTokenSubject: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
-  constructor(private router: Router, private toastrService: ToastrService, private messageService: MessageService, private userService: UserService) {}
+  constructor(private router: Router, private globalService: GlobalService, private toastrService: ToastrService, private messageService: MessageService, private userService: UserService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let accessToken: string = '';
@@ -25,10 +26,12 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
       catchError((error) => {
         // Check if the error is due to an expired access token
-        if (error.status === 500 && accessToken) {
+        // if ((error.status === 500 && accessToken) || error.status === 401) {
+        //   return this.handleTokenExpired(req, next);
+        // }
+        if (error.status === 401 || (error.error.message === 'jwt expired')) {
           return this.handleTokenExpired(req, next);
         }
-
         return throwError(error);
       })
     );
@@ -60,6 +63,8 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   private handleTokenExpired(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    console.log(this.isRefreshing);
+
     if (!this.isRefreshing) {
       this.isRefreshing = true;
       // Call the refresh token endpoint to get a new access token
@@ -85,12 +90,16 @@ export class AuthInterceptor implements HttpInterceptor {
           this.isRefreshing = false;
           console.log(request);
           console.error('Error handling expired access token:', error);
-          if (request.url.includes('/users/refresh-token')) { // 只有当refresh token失败才弹出用户
+          console.log(request.url, request.url.includes('/users/refresh-token'))
+          // if (request.url.includes('/users/refresh-token')) {
+            // 只有当refresh token失败才弹出用户
             this.userService.cleanUser();
+          this.globalService.setDrawerState(false);
+          this.globalService.setSidebarHiddenState(true);
             this.router.navigateByUrl('/login').then(() => {
               this.messageService.add({ severity: 'info', summary: '令牌过期', detail: `请重新登陆` })
             });
-          }
+          // }
           return throwError(error);
         })
       );

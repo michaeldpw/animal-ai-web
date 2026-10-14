@@ -33,6 +33,25 @@ import {TimelineModule} from "primeng/timeline";
 import {CardModule} from 'primeng/card';
 import {AnimateOnScrollModule} from 'primeng/animateonscroll';
 import { CommentComponent } from './partials/comment/comment.component';
+import {AccordionModule} from 'primeng/accordion';
+import {SidebarModule} from 'primeng/sidebar';
+import { SidebarComponent } from './partials/sidebar/sidebar.component';
+import {PanelMenuModule} from 'primeng/panelmenu';
+import {ChartModule} from 'primeng/chart';
+import {CalendarModule} from 'primeng/calendar';
+import {DialogService, DynamicDialogModule} from 'primeng/dynamicdialog';
+import { DeviceCheckingComponent } from './partials/device-checking/device-checking.component';
+import { HistoryComponent } from './history/history.component';
+import { ImageComponent } from './partials/image/image.component';
+import {DeviceService} from './services/device.service';
+import { DeviceComponent } from './device/device.component';
+import {DatePickerModule} from 'primeng/datepicker';
+import { ImageHistoryComponent } from './image-history/image-history.component';
+import {DialogModule} from 'primeng/dialog';
+import { UploadComponent } from './upload/upload.component';
+import { AlertEmailComponent } from './alert-email/alert-email.component';
+import {TableModule} from 'primeng/table';
+import {TagModule} from 'primeng/tag';
 
 registerLocaleData(zh);
 
@@ -45,24 +64,32 @@ registerLocaleData(zh);
         LoginComponent,
         TimelineComponent,
         RegisterComponent,
+        SidebarComponent,
+        DeviceCheckingComponent,
+        HistoryComponent,
+        ImageComponent,
+        DeviceComponent,
+        ImageHistoryComponent,
+        UploadComponent,
+        AlertEmailComponent,
 
     ],
-    imports: [
-        CommonModule,
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        ToastrModule.forRoot({
-            timeOut: 3000,
-            positionClass: 'toast-bottom-center',
-            newestOnTop: false
-        }),
-        BrowserAnimationsModule,
-        FormsModule,
-        ReactiveFormsModule,
-        MenuModule, BadgeModule, RippleModule, AvatarModule, ButtonModule, IconFieldModule, ToastModule, DrawerModule, TimelineModule, CardModule, AnimateOnScrollModule
+  imports: [
+    CommonModule,
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-top-right',
+      newestOnTop: false
+    }),
+    BrowserAnimationsModule,
+    FormsModule, TableModule, TagModule,
+    ReactiveFormsModule, DrawerModule, PanelMenuModule, ChartModule, CalendarModule, DynamicDialogModule, DatePickerModule,
+    MenuModule, BadgeModule, RippleModule, AvatarModule, ButtonModule, IconFieldModule, ToastModule, DrawerModule, TimelineModule, CardModule, AccordionModule, AnimateOnScrollModule, SidebarModule, DialogModule
 
-    ],
+  ],
     providers: [
         provideAnimationsAsync(),
         {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
@@ -75,7 +102,9 @@ registerLocaleData(zh);
             }
         }),
         {provide: LOCALE_ID, useValue: 'zh-CN'},
-        MessageService
+        MessageService,
+      DialogService,
+      DeviceService
     ],
     exports: [
     ],

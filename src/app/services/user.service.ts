@@ -51,6 +51,11 @@ export class UserService {
     );
   }
 
+  isLoggedIn(): boolean {
+    const token = localStorage.getItem('User');
+    return !!token;
+  }
+
   login(userLogin: IUserLogin):Observable<any> {
     return this.http.post<any>(USER_LOGIN_URL, userLogin).pipe(
       tap((res) => {
@@ -84,8 +89,7 @@ export class UserService {
       tap((res: any) => {
         this.userSubject.next(new User());
         localStorage.removeItem(USER_KEY);
-        if (backToHome)
-          this.router.navigateByUrl('');
+          this.router.navigateByUrl('/login');
 
       },
         (error => {

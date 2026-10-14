@@ -1,0 +1,57 @@
+<div class="images-container">
+  <h1>识别记录</h1>
+
+
+  <!-- 日期范围选择 -->
+  <div class="date-filter">
+    <label>选择时间范围:</label>
+    <div style="flex: 1; margin-right: 24px">
+      <p-date-picker
+        [(ngModel)]="rangeDates"
+        selectionMode="range"
+        [readonlyInput]="true"
+        dateFormat="yy-mm-dd"
+        showIcon="true"
+        fluid
+        size="large"
+        placeholder="选择日期范围"/>
+    </div>
+    <button pButton type="button" label="查询" (click)="loadPhotos()" icon="pi pi-search"></button>
+  </div>
+
+  <!-- 加载状态 -->
+  <div *ngIf="loading" class="loading">正在加载...</div>
+
+ <!-- 照片分组 -->
+<div *ngFor="let group of groupedPhotos" class="photo-group">
+  <h3>日期{{group._id}}</h3>
+  <div class="photo-list">
+    <div *ngFor="let photo of group.photos" class="photo-item">
+      <img class="photo" [src]="photo.imageUrl" (click)="openDialog(photo)"/>
+      <div class="timestamp">
+        拍摄时间{{photo.timestamp|date:'HH:mm'}}
+     
+    </div>
+     <div *ngIf="photo.prediction" class= "result">
+        <img *ngIf="photo.prediction[0]" src="/assets/images/warning-icon.png">
+        <img *ngIf="!photo.prediction[0]" src="/assets/images/good.png">
+      </div>
+  </div>
+</div>
+
+
+<p-dialog header="拍摄于{{(photo?.timestamp | date:'YYYY-MM-dd HH:mm')}}" [modal]="true" [(visible)]="visible" [style]="{width:'50rem'}" [breakpoints]="{'1199px':'75vw','575px':'90vw'}" [maximizable]="true">
+  <div *ngIf="photo?.prediction" class= "dialog-result">
+        <img *ngIf="photo.prediction[0]" src="/assets/images/warning-icon.png">
+        <img *ngIf="!photo.prediction[0]" src="/assets/images/good.png">
+      </div>
+    <img src="{{photo?.imageUrl}}" style="width: 100%;height: auto; object-fit: contain"/>
+ </p-dialog> 
+  <!-- 无数据提示 -->
+  <div *ngIf="!loading && groupedPhotos.length === 0" class="no-data">
+    <img src="/assets/images/no-data.png" alt="">
+    <div class="text">暂无照片数据</div>
+  </div>
+
+
+</div>

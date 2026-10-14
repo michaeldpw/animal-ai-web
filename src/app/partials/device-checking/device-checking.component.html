@@ -1,0 +1,52 @@
+<div *ngIf="isChecking">
+  <h1><i class="pi pi-spin pi-spinner" style="font-size: 2rem; margin-right: 8px"></i>正在进行设备绑定检查，请勿刷新页面！</h1>
+</div>
+<div *ngIf="!isChecking" >
+  <p style="margin-bottom: 20px">{{msg}}</p>
+  <form *ngIf="!device && !isBound" [formGroup]="deviceBoundForm" (ngSubmit)="submit()">
+    <div class="zmkdpw-input-group">
+      <label>设备ID</label>
+      <input name="deviceId" placeholder="输入设备ID" type="text" formControlName="deviceId"/>
+      <div *ngIf="fc['deviceId'].errors && isSubmitted" class="error-list">请输入设备ID</div>
+    </div>
+    <div class="zmkdpw-input-group">
+      <label>设备名称</label>
+      <input name="deviceName" placeholder="输入设备名称" type="text" formControlName="deviceName"/>
+      <div *ngIf="fc['deviceName'].errors && isSubmitted" class="error-list">请输入设备名称</div>
+    </div>
+    <div class="zmkdpw-input-group">
+      <label>设备位置</label>
+      <input name="location" placeholder="输入设备位置" type="text" formControlName="location"/>
+      <div *ngIf="fc['location'].errors && isSubmitted" class="error-list">请输入设备位置</div>
+    </div>
+    <button  type="submit" [disabled]="isSubmitting">
+      <ng-container *ngIf="!isSubmitting">
+        <i class="pi pi-link" style="font-size: 16px; color: #000"></i>
+        绑定设备</ng-container>
+      <ng-container *ngIf="isSubmitting">
+        <i  class="pi pi-spin pi-spinner" style="font-size: 16px; color: #000"></i>
+        绑定中...
+      </ng-container>
+    </button>
+
+  </form>
+  <div *ngIf="device && isBound">
+    <div class="device-row">
+      <div class="label">设备ID</div>
+      <div class="value">{{device.deviceId}}</div>
+    </div>
+    <div class="device-row">
+      <div class="label">设备名称</div>
+      <div class="value">{{device.deviceName}}</div>
+    </div>
+    <div class="device-row">
+      <div class="label">设备位置</div>
+      <div class="value">{{device.location}}</div>
+    </div>
+    <div class="device-row">
+      <div class="label">设备状态</div>
+      <div class="value">{{device.status}}</div>
+    </div>
+    <button class="close-btn" (click)="closeDialog()">关闭</button>
+  </div>
+</div>
