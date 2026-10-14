@@ -56,6 +56,67 @@ export class HomeComponent implements OnInit {
   isDeviceOnline: boolean = false;
   device: any;
 
+
+  // ===== 云台控制 =====
+  pan = 90;
+  tilt = 90;
+
+  readonly panMin = 5;
+  readonly panMax = 175;
+  readonly tiltMin = 30;
+  readonly tiltMax = 130;
+
+  readonly cameraStep = 5;
+
+  // 当前版本仅完成本地界面交互
+  cameraWsConnected = false;
+  cameraDeviceConnected = false;
+
+  get cameraControlAvailable(): boolean {
+    return this.cameraWsConnected && this.cameraDeviceConnected;
+  }
+
+  moveCamera(direction: 'up' | 'down' | 'left' | 'right'): void {
+    switch (direction) {
+      case 'left':
+        this.pan += this.cameraStep;
+        break;
+      case 'right':
+        this.pan -= this.cameraStep;
+        break;
+      case 'up':
+        this.tilt -= this.cameraStep;
+        break;
+      case 'down':
+        this.tilt += this.cameraStep;
+        break;
+    }
+
+    this.updateCameraAngles(this.pan, this.tilt);
+  }
+
+  updateCameraAngles(pan: number, tilt: number): void {
+    this.pan = Math.max(this.panMin, Math.min(this.panMax, pan));
+    this.tilt = Math.max(this.tiltMin, Math.min(this.tiltMax, tilt));
+  }
+
+  centerCamera(): void {
+    this.updateCameraAngles(90, 90);
+  }
+
+  onPanChange(event: Event): void {
+    const value = Number((event.target as HTMLInputElement).value);
+    this.updateCameraAngles(value, this.tilt);
+  }
+
+  onTiltChange(event: Event): void {
+    const value = Number((event.target as HTMLInputElement).value);
+    this.updateCameraAngles(this.pan, value);
+  }
+
+
+
+
   constructor(userService: UserService,
               public deviceService: DeviceService,
               public dialogService: DialogService

@@ -16,6 +16,131 @@
 
     </div>
   </div>
+  <!-- 摄像头云台控制面板 -->
+  <section class="ptz-panel panel">
+    <div class="ptz-header">
+      <div>
+        <h2>摄像头云台控制</h2>
+        <p class="ptz-subtitle">Pan-Tilt Camera Control</p>
+      </div>
+
+      <div class="ptz-connection"
+           [class.connected]="cameraControlAvailable">
+        <span class="ptz-dot"></span>
+        {{ cameraControlAvailable ? '远程控制已连接' : '远程控制未连接' }}
+      </div>
+    </div>
+
+    <div class="ptz-body">
+
+      <!-- 方向控制 -->
+      <div class="ptz-direction">
+        <div class="ptz-section-title">方向控制</div>
+
+        <div class="ptz-pad">
+          <button type="button"
+                  class="ptz-button ptz-up"
+                  (click)="moveCamera('up')"
+                  aria-label="向上">
+            <i class="pi pi-arrow-up"></i>
+          </button>
+
+          <button type="button"
+                  class="ptz-button ptz-left"
+                  (click)="moveCamera('left')"
+                  aria-label="向左">
+            <i class="pi pi-arrow-left"></i>
+          </button>
+
+          <button type="button"
+                  class="ptz-button ptz-center"
+                  (click)="centerCamera()">
+            <i class="pi pi-refresh"></i>
+            <span>回中</span>
+          </button>
+
+          <button type="button"
+                  class="ptz-button ptz-right"
+                  (click)="moveCamera('right')"
+                  aria-label="向右">
+            <i class="pi pi-arrow-right"></i>
+          </button>
+
+          <button type="button"
+                  class="ptz-button ptz-down"
+                  (click)="moveCamera('down')"
+                  aria-label="向下">
+            <i class="pi pi-arrow-down"></i>
+          </button>
+        </div>
+
+        <p class="ptz-hint">每次移动 {{ cameraStep }}°</p>
+      </div>
+
+      <!-- 角度调节 -->
+      <div class="ptz-settings">
+        <div class="ptz-section-title">角度调节</div>
+
+        <div class="ptz-angle-row">
+          <div class="ptz-angle-heading">
+            <span>水平旋转 Pan</span>
+            <strong>{{ pan }}°</strong>
+          </div>
+
+          <input
+            type="range"
+            [min]="panMin"
+            [max]="panMax"
+            [value]="pan"
+            (input)="onPanChange($event)"
+            aria-label="水平旋转角度"
+          />
+
+          <div class="ptz-range-labels">
+            <span>{{ panMin }}°</span>
+            <span>{{ panMax }}°</span>
+          </div>
+        </div>
+
+        <div class="ptz-angle-row">
+          <div class="ptz-angle-heading">
+            <span>垂直旋转 Tilt</span>
+            <strong>{{ tilt }}°</strong>
+          </div>
+
+          <input
+            type="range"
+            [min]="tiltMin"
+            [max]="tiltMax"
+            [value]="tilt"
+            (input)="onTiltChange($event)"
+            aria-label="垂直旋转角度"
+          />
+
+          <div class="ptz-range-labels">
+            <span>{{ tiltMin }}°</span>
+            <span>{{ tiltMax }}°</span>
+          </div>
+        </div>
+
+        <div class="ptz-angle-summary">
+          <div>
+            <span>当前水平角度</span>
+            <strong>{{ pan }}°</strong>
+          </div>
+          <div>
+            <span>当前垂直角度</span>
+            <strong>{{ tilt }}°</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ptz-footer">
+      <i class="pi pi-info-circle"></i>
+      当前为界面调试模式，角度变化尚未发送至树莓派。
+    </div>
+  </section>
   <div class="charts">
     <div class="confidence panel">
       <h2>置信度监测</h2>
@@ -53,6 +178,7 @@
 
     </div>
   </div>
+
   <div class="log">
     <div class="panel">
       <h2>异常报告</h2>
