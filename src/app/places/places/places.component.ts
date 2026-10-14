@@ -26,34 +26,34 @@ export class PlacesComponent implements OnInit, AfterViewInit{
   }
 
   ngOnInit() {
-    (mapboxgl as any).accessToken = 'pk.eyJ1IjoicGVpd2VuZDciLCJhIjoiY205emphcDdlMXRsNTJxcHZpZHlpenUzdCJ9.X-oKqYC8nvyz-Hi8Zd0ASQ';
-    this.map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/mapbox/streets-zh-v1', // 可换成 satellite 等
-
-      zoom: 10,
-    });
-
-    this.placeService.getAllPlaces().subscribe((places: any) => {
-      console.log(places);
-      places.map((place: any) => {
-        this.locations.push({lng: Number(place.longitude!), lat: Number(place.latitude!)});
-
-      });
-      const bounds = new mapboxgl.LngLatBounds();
-
-      this.locations.forEach((loc: any) => {
-        const marker = new mapboxgl.Marker({ color: '#ff69b4' }) // 粉红色标记
-          .setLngLat([loc.lng, loc.lat])
-          // .setPopup(new mapboxgl.Popup().setHTML(`<h3>${loc.name}</h3>`))
-          .addTo(this.map);
-
-        bounds.extend([loc.lng, loc.lat]);
-      });
-      // 自动缩放地图以包含所有标记点
-      this.map.fitBounds(bounds, { padding: 50, duration: 1000 });
-
-    })
+    // (mapboxgl as any).accessToken = 'pk.eyJ1IjoicGVpd2VuZDciLCJhIjoiY205emphcDdlMXRsNTJxcHZpZHlpenUzdCJ9.X-oKqYC8nvyz-Hi8Zd0ASQ';
+    // this.map = new mapboxgl.Map({
+    //   container: 'map',
+    //   style: 'mapbox://styles/mapbox/streets-zh-v1', // 可换成 satellite 等
+    //
+    //   zoom: 10,
+    // });
+    //
+    // this.placeService.getAllPlaces().subscribe((places: any) => {
+    //   console.log(places);
+    //   places.map((place: any) => {
+    //     this.locations.push({lng: Number(place.longitude!), lat: Number(place.latitude!)});
+    //
+    //   });
+    //   const bounds = new mapboxgl.LngLatBounds();
+    //
+    //   this.locations.forEach((loc: any) => {
+    //     const marker = new mapboxgl.Marker({ color: '#ff69b4' }) // 粉红色标记
+    //       .setLngLat([loc.lng, loc.lat])
+    //       // .setPopup(new mapboxgl.Popup().setHTML(`<h3>${loc.name}</h3>`))
+    //       .addTo(this.map);
+    //
+    //     bounds.extend([loc.lng, loc.lat]);
+    //   });
+    //   // 自动缩放地图以包含所有标记点
+    //   this.map.fitBounds(bounds, { padding: 50, duration: 1000 });
+    //
+    // })
 
 
 
