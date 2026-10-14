@@ -26,7 +26,6 @@ export class PlacesComponent implements OnInit, AfterViewInit{
   }
 
   ngOnInit() {
-    // (mapboxgl as any).accessToken = 'pk.eyJ1IjoicGVpd2VuZDciLCJhIjoiY205emphcDdlMXRsNTJxcHZpZHlpenUzdCJ9.X-oKqYC8nvyz-Hi8Zd0ASQ';
     // this.map = new mapboxgl.Map({
     //   container: 'map',
     //   style: 'mapbox://styles/mapbox/streets-zh-v1', // 可换成 satellite 等
