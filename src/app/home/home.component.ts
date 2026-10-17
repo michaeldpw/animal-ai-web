@@ -7,7 +7,7 @@ import {UserService} from "../services/user.service";
 import {DeviceCheckingComponent} from '../partials/device-checking/device-checking.component';
 import {DialogService, DynamicDialogRef} from 'primeng/dynamicdialog';
 import {DeviceService} from '../services/device.service';
-
+import { CameraControlService } from '../services/camera-control.service';
 @Component({
   selector: 'app-home',
   standalone: false,
@@ -19,7 +19,15 @@ import {DeviceService} from '../services/device.service';
 // onResize(event) {
 //   event.target.innerWidth;
 // }
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
+
+  private readonly cameraSubscriptions = new Subscription();
+  private subscription1 = new Subscription();
+  private subscription2 = new Subscription();
+  private subscription3 = new Subscription();
+  private subscription4 = new Subscription();
+
+
   container: HTMLElement | null | undefined;
   visible: boolean = true;
   scene: THREE.Scene | undefined;
@@ -68,7 +76,6 @@ export class HomeComponent implements OnInit {
 
   readonly cameraStep = 5;
 
-  // 当前版本仅完成本地界面交互
   cameraWsConnected = false;
   cameraDeviceConnected = false;
 
@@ -77,27 +84,37 @@ export class HomeComponent implements OnInit {
   }
 
   moveCamera(direction: 'up' | 'down' | 'left' | 'right'): void {
+    let targetPan = this.pan;
+    let targetTilt = this.tilt;
+
     switch (direction) {
-      case 'left':
-        this.pan += this.cameraStep;
-        break;
-      case 'right':
-        this.pan -= this.cameraStep;
-        break;
-      case 'up':
-        this.tilt -= this.cameraStep;
-        break;
-      case 'down':
-        this.tilt += this.cameraStep;
-        break;
+      case 'left': targetPan += this.cameraStep; break;
+      case 'right': targetPan -= this.cameraStep; break;
+      case 'up': targetTilt -= this.cameraStep; break;
+      case 'down': targetTilt += this.cameraStep; break;
     }
 
-    this.updateCameraAngles(this.pan, this.tilt);
+    this.updateCameraAngles(targetPan, targetTilt);
   }
 
   updateCameraAngles(pan: number, tilt: number): void {
-    this.pan = Math.max(this.panMin, Math.min(this.panMax, pan));
-    this.tilt = Math.max(this.tiltMin, Math.min(this.tiltMax, tilt));
+    const targetPan = Math.max(
+      this.panMin,
+      Math.min(this.panMax, pan)
+    );
+
+    const targetTilt = Math.max(
+      this.tiltMin,
+      Math.min(this.tiltMax, tilt)
+    );
+
+    if (!this.cameraControl.move(targetPan, targetTilt)) {
+      console.warn('云台未连接，无法发送指令');
+      return;
+    }
+
+    // 不立即修改 pan / tilt；
+    // 等待树莓派 camera_status 确认后更新页面。
   }
 
   centerCamera(): void {
@@ -119,21 +136,37 @@ export class HomeComponent implements OnInit {
 
   constructor(userService: UserService,
               public deviceService: DeviceService,
-              public dialogService: DialogService
+              public dialogService: DialogService,
+              public cameraControl: CameraControlService
   ) {
     userService.userObservable.subscribe(u => {
       console.log(u);
       this.currentUser = u;
 
-    })
+    });
+
   }
 
   ngOnInit(): void {
-    this.deviceStatusSubscription = this.deviceService.online$.subscribe((boundDevice: any) => {
-      console.log(boundDevice);
-      this.isDeviceOnline = boundDevice.online;
-      this.device = boundDevice;
-      // this.loaded = true;
+
+    this.subscription1 = this.cameraControl.connected$.subscribe(connected => {
+      this.cameraWsConnected = connected;
+    });
+
+    this.subscription2 = this.cameraControl.deviceOnline$.subscribe(online => {
+      this.cameraDeviceConnected = online;
+    });
+
+    this.subscription3 = this.cameraControl.pan$.subscribe(pan => {
+      this.pan = pan;
+    });
+
+    this.subscription4 = this.cameraControl.tilt$.subscribe(tilt => {
+      this.tilt = tilt;
+    });
+
+    this.cameraControl.connect().catch(error => {
+      console.error('云台控制端连接失败:', error);
     });
 
     this.initCalendar();
@@ -268,6 +301,20 @@ export class HomeComponent implements OnInit {
     return this.lowConfidenceDays.includes(dateStr);
   }
 
+  ngOnDestroy(): void {
+    // this.cameraSubscriptions.unsubscribe();
+    this.subscription1.unsubscribe();
+    this.subscription2.unsubscribe();
+    this.subscription3.unsubscribe();
+    this.subscription4.unsubscribe();
+
+    this.deviceStatusSubscription?.unsubscribe();
+    this.resizeSubscription$?.unsubscribe();
+
+    // 当前首页负责建立云台连接。
+    // 离开首页时主动断开，避免无用连接。
+    this.cameraControl.disconnect();
+  }
 
 
 }

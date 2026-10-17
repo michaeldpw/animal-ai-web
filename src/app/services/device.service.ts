@@ -61,7 +61,7 @@ export class DeviceService {
       )
       .subscribe(res => {
         this.onlineSubject.next(res);
-        console.log(`设备状态：${res.online ? '在线 ✅' : '离线 ❌'}`);
+        // console.log(`设备状态：${res.online ? '在线 ✅' : '离线 ❌'}`);
       });
   }
 

@@ -1,83 +1,119 @@
 <div class="home-wrapper">
 
  <h1>控制中心</h1>
-  <div class="statuses">
-    <div class="camera-status panel">
-      <div class="indicator" [ngClass]="{'online': isDeviceOnline, 'offline': !isDeviceOnline}"></div>
-      <p>远程摄像头</p><p class="status" [ngClass]="{'online': isDeviceOnline, 'offline': !isDeviceOnline}">
-      {{isDeviceOnline ? '在线' : '离线'}} {{!isDeviceOnline && device?.offlineCount <= 3 ? '(尝试重接中)' : ''}}
-      <i *ngIf="!isDeviceOnline && device?.offlineCount <= 3" class="pi pi-spin pi-spinner" style="font-size: 2rem; position: absolute; top: 20px; right: 24px"></i>
-    </p>
+<!--  <div class="statuses">-->
+<!--    <div class="camera-status panel">-->
+<!--      <div class="indicator" [ngClass]="{'online': isDeviceOnline, 'offline': !isDeviceOnline}"></div>-->
+<!--      <p>远程摄像头</p><p class="status" [ngClass]="{'online': isDeviceOnline, 'offline': !isDeviceOnline}">-->
+<!--      {{isDeviceOnline ? '在线' : '离线'}} {{!isDeviceOnline && device?.offlineCount <= 3 ? '(尝试重接中)' : ''}}-->
+<!--      <i *ngIf="!isDeviceOnline && device?.offlineCount <= 3" class="pi pi-spin pi-spinner" style="font-size: 2rem; position: absolute; top: 20px; right: 24px"></i>-->
+<!--    </p>-->
 
-    </div>
-    <div class="network-status panel">
-      <div class="indicator"></div>
-      <p>模型加载状态</p><p class="status">正常</p>
+<!--    </div>-->
+<!--    <div class="network-status panel">-->
+<!--      <div class="indicator"></div>-->
+<!--      <p>模型加载状态</p><p class="status">正常</p>-->
 
-    </div>
-  </div>
+<!--    </div>-->
+<!--  </div>-->
   <!-- 摄像头云台控制面板 -->
-  <section class="ptz-panel panel">
+
+  <section class="device-control panel">
+    <div class="device-control-header">
+      <div class="device-identity">
+        <div class="device-icon">
+          <i class="pi pi-video"></i>
+        </div>
+        <div>
+          <h2>视觉监测终端</h2>
+          <p>树莓派 · 摄像头与云台一体化控制</p>
+        </div>
+      </div>
+
+      <div class="device-online-status"
+           [class.online]="cameraControlAvailable">
+        <span class="status-dot"></span>
+        {{ cameraControlAvailable ? '设备在线' : '设备离线' }}
+      </div>
+    </div>
+
+    <div class="device-subsystems">
+      <div class="subsystem">
+        <i class="pi pi-camera"></i>
+        <div>
+          <span>图像采集</span>
+          <strong>状态待接入</strong>
+        </div>
+      </div>
+
+      <div class="subsystem">
+        <i class="pi pi-wifi"></i>
+        <div>
+          <span>远程控制通道</span>
+          <strong>
+            {{ cameraWsConnected ? '已连接' : '未连接' }}
+          </strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="device-control-divider"></div>
+
     <div class="ptz-header">
       <div>
-        <h2>摄像头云台控制</h2>
+        <h2>云台控制</h2>
         <p class="ptz-subtitle">Pan-Tilt Camera Control</p>
       </div>
-
-      <div class="ptz-connection"
-           [class.connected]="cameraControlAvailable">
-        <span class="ptz-dot"></span>
-        {{ cameraControlAvailable ? '远程控制已连接' : '远程控制未连接' }}
-      </div>
+      <span class="ptz-step-label">步进 {{ cameraStep }}°</span>
     </div>
 
     <div class="ptz-body">
-
-      <!-- 方向控制 -->
       <div class="ptz-direction">
         <div class="ptz-section-title">方向控制</div>
 
         <div class="ptz-pad">
-          <button type="button"
-                  class="ptz-button ptz-up"
+          <button class="ptz-button ptz-up"
+                  type="button"
+                  [disabled]="!cameraControlAvailable"
                   (click)="moveCamera('up')"
                   aria-label="向上">
             <i class="pi pi-arrow-up"></i>
           </button>
 
-          <button type="button"
-                  class="ptz-button ptz-left"
+          <button class="ptz-button ptz-left"
+                  type="button"
+                  [disabled]="!cameraControlAvailable"
                   (click)="moveCamera('left')"
                   aria-label="向左">
             <i class="pi pi-arrow-left"></i>
           </button>
 
-          <button type="button"
-                  class="ptz-button ptz-center"
+          <button class="ptz-button ptz-center"
+                  type="button"
+                  [disabled]="!cameraControlAvailable"
                   (click)="centerCamera()">
             <i class="pi pi-refresh"></i>
             <span>回中</span>
           </button>
 
-          <button type="button"
-                  class="ptz-button ptz-right"
+          <button class="ptz-button ptz-right"
+                  type="button"
+                  [disabled]="!cameraControlAvailable"
                   (click)="moveCamera('right')"
                   aria-label="向右">
             <i class="pi pi-arrow-right"></i>
           </button>
 
-          <button type="button"
-                  class="ptz-button ptz-down"
+          <button class="ptz-button ptz-down"
+                  type="button"
+                  [disabled]="!cameraControlAvailable"
                   (click)="moveCamera('down')"
                   aria-label="向下">
             <i class="pi pi-arrow-down"></i>
           </button>
         </div>
-
-        <p class="ptz-hint">每次移动 {{ cameraStep }}°</p>
       </div>
 
-      <!-- 角度调节 -->
       <div class="ptz-settings">
         <div class="ptz-section-title">角度调节</div>
 
@@ -87,14 +123,12 @@
             <strong>{{ pan }}°</strong>
           </div>
 
-          <input
-            type="range"
-            [min]="panMin"
-            [max]="panMax"
-            [value]="pan"
-            (input)="onPanChange($event)"
-            aria-label="水平旋转角度"
-          />
+          <input type="range"
+                 [disabled]="!cameraControlAvailable"
+                 [min]="panMin"
+                 [max]="panMax"
+                 [value]="pan"
+                 (input)="onPanChange($event)">
 
           <div class="ptz-range-labels">
             <span>{{ panMin }}°</span>
@@ -108,14 +142,12 @@
             <strong>{{ tilt }}°</strong>
           </div>
 
-          <input
-            type="range"
-            [min]="tiltMin"
-            [max]="tiltMax"
-            [value]="tilt"
-            (input)="onTiltChange($event)"
-            aria-label="垂直旋转角度"
-          />
+          <input type="range"
+                 [disabled]="!cameraControlAvailable"
+                 [min]="tiltMin"
+                 [max]="tiltMax"
+                 [value]="tilt"
+                 (input)="onTiltChange($event)">
 
           <div class="ptz-range-labels">
             <span>{{ tiltMin }}°</span>
@@ -125,11 +157,11 @@
 
         <div class="ptz-angle-summary">
           <div>
-            <span>当前水平角度</span>
+            <span>水平角度</span>
             <strong>{{ pan }}°</strong>
           </div>
           <div>
-            <span>当前垂直角度</span>
+            <span>垂直角度</span>
             <strong>{{ tilt }}°</strong>
           </div>
         </div>
@@ -138,9 +170,12 @@
 
     <div class="ptz-footer">
       <i class="pi pi-info-circle"></i>
-      当前为界面调试模式，角度变化尚未发送至树莓派。
+      {{ cameraControlAvailable
+      ? '云台控制通道已连接，角度由树莓派状态同步。'
+      : '云台控制暂不可用，请检查网络及树莓派连接。' }}
     </div>
   </section>
+
   <div class="charts">
     <div class="confidence panel">
       <h2>置信度监测</h2>
